@@ -3,11 +3,14 @@ import "@/app/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata = {
-  title: "GreenThicks - Grand Launch Event",
-  description: "Fresh From Farm to Table - Premium Organic Vegetables",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
-    generator: 'v0.dev'
-}
+  title: "GreenThicks",
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 
 export default function RootLayout({
   children,

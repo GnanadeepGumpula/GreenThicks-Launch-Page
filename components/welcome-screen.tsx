@@ -1,19 +1,33 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
-import { Leaf, Sparkles, Star, Truck, Users, Award } from "lucide-react"
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Leaf, Sparkles, Star, Truck, Award, Users } from "lucide-react";
 
 interface WelcomeScreenProps {
-  onTouchStart: () => void
+  onTouchStart: () => void;
 }
 
 export default function WelcomeScreen({ onTouchStart }: WelcomeScreenProps) {
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    setLoaded(true)
-  }, [])
+    const updateWindowSize = () => {
+      setWindowSize({
+        width: typeof window !== "undefined" ? window.innerWidth : 0,
+        height: typeof window !== "undefined" ? window.innerHeight : 0,
+      });
+    };
+
+    setLoaded(true);
+    updateWindowSize(); // Initial size
+    window.addEventListener("resize", updateWindowSize);
+
+    return () => {
+      window.removeEventListener("resize", updateWindowSize);
+    };
+  }, []);
 
   return (
     <motion.div
@@ -31,21 +45,21 @@ export default function WelcomeScreen({ onTouchStart }: WelcomeScreenProps) {
             key={i}
             className="absolute"
             initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
+              x: Math.random() * windowSize.width,
+              y: Math.random() * windowSize.height,
               scale: 0,
               opacity: 0,
             }}
             animate={{
               x: [
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerWidth,
+                Math.random() * windowSize.width,
+                Math.random() * windowSize.width,
+                Math.random() * windowSize.width,
               ],
               y: [
-                Math.random() * window.innerHeight,
-                Math.random() * window.innerHeight,
-                Math.random() * window.innerHeight,
+                Math.random() * windowSize.height,
+                Math.random() * windowSize.height,
+                Math.random() * windowSize.height,
               ],
               scale: [0, 1, 0],
               opacity: [0, 0.6, 0],
@@ -232,5 +246,5 @@ export default function WelcomeScreen({ onTouchStart }: WelcomeScreenProps) {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-96 sm:h-96 lg:w-[800px] lg:h-[800px] bg-gradient-to-r from-green-400/10 to-emerald-400/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
     </motion.div>
-  )
+  );
 }

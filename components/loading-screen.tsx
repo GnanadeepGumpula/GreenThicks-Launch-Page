@@ -1,31 +1,45 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 interface LoadingScreenProps {
-  onStart: () => void
+  onStart: () => void;
 }
 
 export default function LoadingScreen({ onStart }: LoadingScreenProps) {
-  const [progress, setProgress] = useState(0)
-  const [showButton, setShowButton] = useState(false)
+  const [progress, setProgress] = useState(0);
+  const [showButton, setShowButton] = useState(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
+    const updateWindowSize = () => {
+      setWindowSize({
+        width: typeof window !== "undefined" ? window.innerWidth : 0,
+        height: typeof window !== "undefined" ? window.innerHeight : 0,
+      });
+    };
+
+    updateWindowSize(); // Initial size
+    window.addEventListener("resize", updateWindowSize);
+
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
-          clearInterval(interval)
-          setShowButton(true)
-          return 100
+          clearInterval(interval);
+          setShowButton(true);
+          return 100;
         }
-        return prev + 2
-      })
-    }, 60)
+        return prev + 2;
+      });
+    }, 60);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("resize", updateWindowSize);
+    };
+  }, []);
 
   return (
     <motion.div
@@ -42,8 +56,8 @@ export default function LoadingScreen({ onStart }: LoadingScreenProps) {
             key={i}
             className="absolute w-1 h-1 sm:w-2 sm:h-2 bg-green-400 rounded-full opacity-30"
             animate={{
-              x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth],
-              y: [Math.random() * window.innerHeight, Math.random() * window.innerHeight],
+              x: [Math.random() * windowSize.width, Math.random() * windowSize.width],
+              y: [Math.random() * windowSize.height, Math.random() * windowSize.height],
               scale: [0, 1, 0],
             }}
             transition={{
@@ -134,5 +148,5 @@ export default function LoadingScreen({ onStart }: LoadingScreenProps) {
         )}
       </AnimatePresence>
     </motion.div>
-  )
+  );
 }

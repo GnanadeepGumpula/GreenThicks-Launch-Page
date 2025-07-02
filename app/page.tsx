@@ -6,6 +6,7 @@ import WelcomeScreen from "@/components/welcome-screen"
 import LoadingScreen from "@/components/loading-screen"
 import { AnimatePresence } from "framer-motion"
 
+
 export default function Home() {
   const [currentScreen, setCurrentScreen] = useState<"loading" | "welcome" | "animation" | "redirecting">("loading")
 
