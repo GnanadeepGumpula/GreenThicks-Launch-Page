@@ -41,15 +41,15 @@ const LoadingPage: React.FC = () => {
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           />
 
-          {/* Video with 3D Border */}
+          {/* Full-screen Video with 3D Border */}
           <motion.div
-            className="relative w-full max-w-2xl aspect-video"
+            className="relative w-full h-screen"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
           >
-            <div className="absolute inset-[-10px] bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg transform rotate-3 scale-105 -z-10 shadow-2xl" />
-            <div className="absolute inset-[-6px] bg-gray-900 rounded-lg transform rotate-1 scale-102 -z-10" />
+            <div className="absolute inset-[-10px] bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg -z-10 shadow-2xl" />
+            <div className="absolute inset-[-6px] bg-gray-900 rounded-lg -z-10" />
             <video
               ref={videoRef}
               src="/greenthicks-video.mp4"
@@ -57,7 +57,7 @@ const LoadingPage: React.FC = () => {
               muted={false}
               playsInline
               onEnded={handleVideoEnd}
-              className="w-full h-full rounded-lg shadow-xl border border-green-400/50"
+              className="w-full h-full object-cover rounded-lg shadow-xl border border-green-400/50"
             />
           </motion.div>
 
@@ -87,7 +87,7 @@ const LoadingPage: React.FC = () => {
           </motion.div>
 
           {/* Animated Text Overlay */}
-          <div className="absolute bottom-12 text-center space-y-2">
+          <div className="absolute bottom-12 left-0 right-0 text-center space-y-2">
             <motion.h2
               className="text-lg md:text-xl text-white font-semibold"
               initial={{ opacity: 0, y: 20 }}

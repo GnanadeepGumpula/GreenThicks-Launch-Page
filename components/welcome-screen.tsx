@@ -224,7 +224,7 @@ export default function WelcomeScreen({ onTouchStart }: WelcomeScreenProps) {
                   </div>
                   <div className="text-center px-2">
                     <Truck className="w-4 h-4 sm:w-8 sm:h-8 lg:w-12 lg:h-12 text-emerald-400 mx-auto mb-1 sm:mb-2" />
-                    <div className="text-sm sm:text-2xl lg:text-4xl font-bold text-emerald-400">24/7</div>
+                    <div className="text-sm sm:text-2xl lg:text-4xl font-bold text-emerald-400">With In 24Hrs</div>
                     <div className="text-xs sm:text-sm lg:text-base text-gray-300">DELIVERY</div>
                   </div>
                   <div className="text-center px-2">
